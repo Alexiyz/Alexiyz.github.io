@@ -286,7 +286,7 @@ header {
   color: #f2f2f2;
   position: relative;
   height: 50px;
-  background: url(../images/download.svg) no-repeat center left;
+  background: url(./images/download.svg) no-repeat center left;
   background-size: 25px 20px;
 }
 

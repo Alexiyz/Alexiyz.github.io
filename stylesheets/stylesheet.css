@@ -226,9 +226,18 @@ form {
   padding: 20px;
 }
 
+
 /*******************************************************************************
 Full-Width Styles
 *******************************************************************************/
+
+.blogpost {
+    text-align: center;
+}
+
+.description {
+  margin-bottom: 35px;
+}
 
 .time {
   color:#8b8b8b;
@@ -345,11 +354,13 @@ header {
 #home_link {
   display: inline-block;
   float: right;
-  margin-right: 5%;
+  margin-right: 3%;
   font-size: 20px;
   font-weight: bold;
-  border-bottom: 1px dotted #666;
+  padding: 2px;
+  border: 1px dotted #666;
   color: inherit;
+  background-color:papayawhip;
 }
 #startmargin {
   margin-bottom: 40px;

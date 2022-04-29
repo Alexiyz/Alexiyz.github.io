@@ -16,23 +16,17 @@
   </head>
 
   <body>
-
     <!-- HEADER -->
-
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <!--
-          <h1 id="project_headline">Paper Analysis: NeuralRecon</h1>
-          <h2 id="project_tagline">Paper Analysis on NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video</h2>
- -->
         </header>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
 
-        <!-- Start Header -->
+        <!-- Header -->
         <img alt="a Wild Me appears!" class="myimage" src="./images/me.jpeg"/>
         <p id="name">Alexiy Zhandarov</p>
         <p id="undername">Informatics B.Sc Student</p>
@@ -41,23 +35,57 @@
         <hr id=startmargin>
 
         <!-- ACTUAL START -->
-
         <h1 style="text-align:center">Paper Analysis on Real-Time 3D Scene Reconstruction from Monocular Video</h1>
         <p class="time"> May 20, 2022 </p>
-        <p> In this blog post, I will review the paper NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video published in ...</p>
+
+        <!-- QUICK INTRO -->
+        <p> In this blog post, I will review and analyze the paper NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video published in CVPR 2021 [1]
+        After a brief introduction and going over the relevant terms, I will attempt to explain the algorithm and framework as simply as possible, observe an example, and finally dissect the results and see what it all means for the future of computer vision. </p>
+
+        <video width="100%" height="250" autoplay muted>
+          <source src="./images/web-scene2.m4v" type="video/mp4">
+              Your browser does not support the video format.
+              Try Using Chrome on PC.
+          </video>
+          <p class="explain"> Showcase of the proposed framework.[2] </p>
+
+
+        <!-- INTRODUCTION -->
         <h3>Introduction</h3>
-        Scene Reconstruction is ...
+        3D scene reconstruction is one of the central tasks in 3D computer vision with many applications. 3D reconstruction has seen a wide range of usage within the medical industry, computer animation and graphics virual reality(VR) and augmented reality(AR). Focusing in on the latter for example, to enable realistic and immersive interactions between the desired effects and the surrounding physical environment, the 3D reconstruction needs to be accurate, coherent and performed without any noticeable delay. While camera motion can be tracked accurately with state-of-the-art visual-inertial SLAM systems [3], real-time image-based dense reconstruction remains to be a challenging problem due to low reconstruction quality and high computation demands.
 
-        <h4>References</h4>
+        <!-- CONCEPTS -->
+        <h3>Key concepts</h3>
+        ...
+
+        <!-- GRU -->
+        <h3>GRU?</h3>
+        ...
+
+        <!-- Algorithm -->
+        <h3>The algorithm</h3>
+        ...
+
+        <!-- Experiments -->
+        <h3>The Experiments</h3>
+        ...
+
+        <!-- Experiments -->
+        <h3>Results & Discussion</h3>
+        ...
+
+        <!-- References -->
+        <div id="References">
+        <h5>References</h5>
         <ol>
-            <li>
-              <p>original paper</p>
-            </li>
-            <li><p>Next item.</p></li>
-          </ol>
+            <li><a href="https://arxiv.org/pdf/2104.00681.pdf">Jiaming Sun, Yiming Xie1,Linghao Chen, Xiaowei Zhou, Hujun Bao, Zhejiang University, SenseTime Research - NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video</a></li>
+            <li><a href="https://zju3dv.github.io/neuralrecon/">NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video Presentation Page</a></li>
+            <li><a hred="https://arxiv.org/pdf/2007.11898.pdf">Carlos Campos, Richard Elvira, Juan J. G´omez Rodr´ıguez, Jos´e M. M. Montiel, and Juan D. Tard´os. ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi-Map SLAM. ArXiv, 2020.</a></li>
 
+          </ol>
+        </div>
       </section>
-    </div>
+
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">

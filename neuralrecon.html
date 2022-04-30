@@ -24,7 +24,7 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
 
-        <!-- Header -->
+        <!-- TITLE -->
         <img alt="a Wild Me appears!" class="myimage" src="./images/me.jpeg"/>
         <p id="name">Alexiy Zhandarov</p>
         <p id="undername">Informatics B.Sc Student</p>
@@ -50,15 +50,40 @@
 
         <!-- INTRODUCTION -->
         <h3>Introduction</h3>
-        3D scene reconstruction is one of the central tasks in 3D computer vision with many applications. 3D reconstruction has seen a wide range of usage within the medical industry, computer animation and graphics virual reality(VR) and augmented reality(AR). Focusing in on the latter for example, to enable realistic and immersive interactions between the desired effects and the surrounding physical environment, the 3D reconstruction needs to be accurate, coherent and performed without any noticeable delay. While camera motion can be tracked accurately with state-of-the-art visual-inertial SLAM systems [3], real-time image-based dense reconstruction remains to be a challenging problem due to low reconstruction quality and high computation demands.
+        <p>
+          Scene reconstruction is one of the central tasks in 3D computer vision with currently numerous applications. 3D reconstruction has seen a wide range of usage within the medical industry, computer animation and graphics, virual reality(VR) and augmented reality(AR).
+        </p>
+        <p>
+          Focusing in on the latter for example, to enable realistic and immersive interactions between the desired effects and the surrounding physical environment, the 3D reconstruction has many standards to fulfil; it needs to be accurate, coherent and performed without any noticeable delay.
+        </p>
+        <p>
+          While camera motion can be tracked accurately with state-of-the-art visual-inertial SLAM systems [3], real-time image-based dense reconstruction remains to be a challenging problem due to <b>low reconstruction quality and high computation demands.</b> Slow and low quality algorithms are naturaly undesirable and can be unreliable when requiring precise results. The proposed framework 'NeuralRecon' attempts to address these issues. Moreover the method proposes a way avoiding the common path of depth-based methods, which uses TSDF fusion and per frame analyzation, and rather predicts it in a local window.
+        </p>
+        <img alt="result1" class="results" src="./images/results1.jpg"/>
+        <p class="explain">
+          Figure 1. Comparison between depth-based methods and the proposed 3D reconstruction method.
+        </p>
 
         <!-- CONCEPTS -->
-        <h3>Key concepts</h3>
+        <h3>Depth maps and computations</h3>
+        <p>
+          Depth maps are a vital instrument in attempting to recreate a model from images. They are clearly useful in a wide range of fields, however tend to set back the process' speed by their high number of computations. Most image-based real-time pipelines adopt the depth map fusion approach[4].
+        </p>
+        <p>
+          Single-view depth maps are first estimated from each key frame and filtered for consistency and temporal smoothness, and lastely fused into a Truncated Signed Distance Function Volume (TSDF-V). <br>
+          The reconstructed mesh can be then extracted from the fusion with the marching Cubes Algoorithm [5]. An Algorithm, originally intended for usage in medical imaging, using a divide-and-conquer approach to generate inter-slice connectivity, defining a triangle topology it processes 3D data in-order and calculates verticies using linear interpolation. The detail in images produced from the generated surface models is the result of maintaining the inter-slice connectivity, surface data, and gradient information present in the original 3D data.
+        </p>
+        <p>
+          This approach suffers as the maps are estimated individually on each key frame. Additionaly each map is estimated in full leading to substantial overlap in the results.
+          Estimating the same surfaces multiple times causes unnecessary computations, and may cause difficulties delivering correct results in certain areas.(see Figure 1)
+        <!-- GRU -->
+        <h3>Convolution reconstruction</h3>
         ...
 
-        <!-- GRU -->
-        <h3>GRU?</h3>
+
+        <h3>GRU</h3>
         ...
+
 
         <!-- Algorithm -->
         <h3>The algorithm</h3>
@@ -79,6 +104,11 @@
             <li><a href="https://arxiv.org/pdf/2104.00681.pdf">Jiaming Sun, Yiming Xie1,Linghao Chen, Xiaowei Zhou, Hujun Bao, Zhejiang University, SenseTime Research - NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video</a></li>
             <li><a href="https://zju3dv.github.io/neuralrecon/">NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video Presentation Page</a></li>
             <li><a href="https://arxiv.org/pdf/2007.11898.pdf">Carlos Campos, Richard Elvira, Juan J. G´omez Rodr´ıguez, Jos´e M. M. Montiel, and Juan D. Tard´os. ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi-Map SLAM. ArXiv, 2020.</a></li>
+            <li><a href="https://www.researchgate.net/publication/284139276_3D_Modeling_on_the_Go_Interactive_3D_Reconstruction_of_Large-Scale_Scenes_on_Mobile_Devices">Thomas Schops, Torsten Sattler, Christian Hane, and Marc
+              Pollefeys. 3D Modeling on the Go: Interactive 3D Reconstruction
+              of Large-Scale Scenes on Mobile Devices. In 3DV,
+              2015.</a></li>
+              <li><a href="https://dl.acm.org/doi/pdf/10.1145/37402.37422">William E. Lorensen and Harvey E. Cline. Marching Cubes: A High Resolution 3D Surface Construction Algorithm. SIGGRAPH, 1987</a></li>
 
           </ol>
         </div>

@@ -341,6 +341,13 @@ header {
   border-radius:90px;
 }
 
+.results {
+  display: block;
+  margin: 30px auto auto auto;
+  width: 70%;
+}
+
+
 #name {
   font-size: 28px;
   margin: 10px 10px 0px 0px;

@@ -37,7 +37,7 @@
         <p class="time"> May 20, 2022 </p>
 
         <!-- QUICK INTRO -->
-        <p> In this blog post, I will review and analyze the paper NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video published in CVPR 2021 [1]
+        <p> In this blog post, I will review and analyze the paper NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video published in CVPR 2021 [<a href="#References">1</a>]
         After a brief introduction and going over the relevant terms, I will attempt to explain the algorithm and framework as simply as possible, observe an example, and finally dissect the results and see what it all means for the future of computer vision. </p>
 
         <video width="100%" height="250" autoplay muted>
@@ -45,7 +45,7 @@
               Your browser does not support the video format.
               Try Using Chrome on PC.
           </video>
-          <p class="explain"> Showcase of the proposed framework.[2] </p>
+          <p class="explain"> Showcase of the proposed framework.[<a href="#References">2</a>] </p>
 
 
         <!-- INTRODUCTION -->
@@ -57,7 +57,7 @@
           Focusing in on the latter for example, to enable realistic and immersive interactions between the desired effects and the surrounding physical environment, the 3D reconstruction has many standards to fulfil; it needs to be accurate, coherent and performed without any noticeable delay.
         </p>
         <p>
-          While camera motion can be tracked accurately with state-of-the-art visual-inertial SLAM systems [3], real-time image-based dense reconstruction remains to be a challenging problem due to <b>low reconstruction quality and high computation demands.</b> Slow and low quality algorithms are naturaly undesirable and can be unreliable when requiring precise results. The proposed framework 'NeuralRecon' attempts to address these issues. Moreover the method proposes a way avoiding the common path of depth-based methods, which uses TSDF fusion and per frame analyzation, and rather predicts it in a local window.
+          While camera motion can be tracked accurately with state-of-the-art visual-inertial SLAM systems [<a href="#References">3</a>], real-time image-based dense reconstruction remains to be a challenging problem due to <b>low reconstruction quality and high computation demands.</b> Slow and low quality algorithms are naturaly undesirable and can be unreliable when requiring precise results. The proposed framework 'NeuralRecon' attempts to address these issues. Moreover the method proposes a way avoiding the common path of depth-based methods, which uses TSDF fusion and per frame analyzation, and rather predicts it in a local window.
         </p>
         <img alt="result1" class="results" src="./images/results1.jpg"/>
         <p class="explain">
@@ -67,24 +67,52 @@
         <!-- CONCEPTS -->
         <h3>Depth maps and computations</h3>
         <p>
-          Depth maps are a vital instrument in attempting to recreate a model from images. They are clearly useful in a wide range of fields, however tend to set back the process' speed by their high number of computations. Most image-based real-time pipelines adopt the depth map fusion approach[4].
+          Depth maps are a vital instrument in attempting to recreate a model from images. They are clearly useful in a wide range of fields, however tend to set back the process' speed by their high number of computations. Most image-based real-time pipelines adopt the depth map fusion approach[<a href="#References">4</a>].
         </p>
         <p>
           Single-view depth maps are first estimated from each key frame and filtered for consistency and temporal smoothness, and lastely fused into a Truncated Signed Distance Function Volume (TSDF-V). <br>
-          The reconstructed mesh can be then extracted from the fusion with the marching Cubes Algoorithm [5]. An Algorithm, originally intended for usage in medical imaging, using a divide-and-conquer approach to generate inter-slice connectivity, defining a triangle topology it processes 3D data in-order and calculates verticies using linear interpolation. The detail in images produced from the generated surface models is the result of maintaining the inter-slice connectivity, surface data, and gradient information present in the original 3D data.
+          The reconstructed mesh can be then extracted from the fusion with the marching Cubes Algoorithm [<a href="#References">5</a>]. An Algorithm, originally intended for usage in medical imaging, using a divide-and-conquer approach to generate inter-slice connectivity, defining a triangle topology it processes 3D data in-order and calculates verticies using linear interpolation. The detail in images produced from the generated surface models is the result of maintaining the inter-slice connectivity, surface data, and gradient information present in the original 3D data.
         </p>
         <p>
           This approach suffers as the maps are estimated individually on each key frame. Additionaly each map is estimated in full leading to substantial overlap in the results.
           Estimating the same surfaces multiple times causes unnecessary computations, and may cause difficulties delivering correct results in certain areas.(see Figure 1)
+        </p>
+
+        <p>
+          The paper proposes a method to combat these problems fitting real-time reconstruction from a monocular video. By jointly reconstructing and fusing the 3D geometry directly in the TSDF-V and a given set of monocular images and camera poses from a SLAM system, NeuralRecon can incrementally unproject the image features to form sequentially a 3D feature volume by utilising convolutions to process the feature volume and eventually outputting a sparse TSDF-V which is then gradually refined.
+        </p>
+        <p>
+          By directly reconstructing the implicit surface, the network is able to learn the local smoothness and global shape prior of natural 3D surfaces. This helps solve one of the issues introduced earlier of predicting separate depth maps.
+        </p>
         <!-- GRU -->
-        <h3>Convolution reconstruction</h3>
-        ...
-
-
         <h3>GRU</h3>
-        ...
+        <p>
+          To make the jointly produced shape globally consistent with the previous reconstructions a learning based TSDF fusion module using the Gated Recurrent Unit(GRU) is proposed.
+        </p>
+        <p>
+          While previous works commonly referred to SLTM for modeling, here a decision has been made to opt for a GRU based approach instead. GRU have been shown to be capabele of producing often comparable results with significantly faster computation times thanks to its simplicity. [<a href="#References">6,7</a>]
+        </p>
+        <p>
+          The GRU fusion makes the current-fragment reconstruction conditioned on the previously reconstructed global volume, hence creating a clear connection between the fragments correcting the problen, which appeared in other designs and yielding a joint reconstruction. This as a result, reconstructs a dense, accurate and globally coherent mesh.
+        </p>
+        <p>
+          The experiments go on to report, that the new predicition procedure also removes the redundant computation in depth-based methods, which allows for the use of larger 3D CNNs while maintaining real-time performance.
+        </p>
 
-
+        <!-- DATASETS -->
+        <h3>Datasets and experiments</h3>
+        <p>
+          To validate the system ScanNet and 7-Scenes datasets have been used.
+        </p>
+        <img alt="ScanNet" class="results" src="./images/dataset1.jpg"/>
+        <h5>1. ScanNet</h5>
+        <p>
+          ScanNet is a RGB-D video dataset containing 2.5M views in over a thousand scenes annotated with 3D camera poses, surface reconstructions, and semantic segmentations [<a href="#References">8</a>]. Using this data helps achieve state-of-the-art performance on several 3D scene understanding tasks.
+        </p>
+        <h5>2. 7-Scenes</h5>
+        <p>
+          The 7-Scenes dataset is a collection of tracked RGB-D camera frames. It can be used for evaluation of methods for uses such as dense tracking, mapping and more. [<a href="#References">9</a>]
+        </p>
         <!-- Algorithm -->
         <h3>The algorithm</h3>
         ...
@@ -108,8 +136,14 @@
               Pollefeys. 3D Modeling on the Go: Interactive 3D Reconstruction
               of Large-Scale Scenes on Mobile Devices. In 3DV,
               2015.</a></li>
-              <li><a href="https://dl.acm.org/doi/pdf/10.1145/37402.37422">William E. Lorensen and Harvey E. Cline. Marching Cubes: A High Resolution 3D Surface Construction Algorithm. SIGGRAPH, 1987</a></li>
-
+            <li><a href="https://dl.acm.org/doi/pdf/10.1145/37402.37422">William E. Lorensen and Harvey E. Cline. Marching Cubes: A High Resolution 3D Surface Construction Algorithm. SIGGRAPH, 1987</a></li>
+            <li><a href="https://arxiv.org/pdf/1412.3555.pdf">Junyoung Chung Caglar Gulcehre, Kyung Hyun Cho Universite de Montreal, Yoshua Bengio Universite de Montreal CIFAR Senior Fellow Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling
+            </a></li>
+            <li><a href="https://arxiv.org/pdf/1409.1259.pdf">Cho, K., Van Merriënboer, B., Bahdanau, D., & Bengio, Y. (2014). On the properties of neural machine translation: encoder-decoder approaches. arXiv preprint arXiv:1409.1259.
+            </a></li>
+            <li><a href="https://arxiv.org/pdf/1702.04405">ScanNet: Richly-annotated 3D Reconstructions of Indoor Scenes Angela Dai, Angel X. Chang, Manolis Savva, Maciej Halber, Thomas Funkhouser, Matthias Nießner
+            </a></li>
+            <li>Jamie Shotton, Ben Glocker, Christopher Zach, Shahram Izadi, Antonio Criminisi, and Andrew Fitzgibbon. Scene Coordinate Regression Forests for Camera Relocalization in RGB-D Images. In CVPR, 2013</li>
           </ol>
         </div>
       </section>

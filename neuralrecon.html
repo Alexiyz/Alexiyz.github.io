@@ -10,6 +10,11 @@
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,700,700italic' rel='stylesheet' type='text/css'>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
     <title>Paper Analysis: NeuralRecon</title>
   </head>
 
@@ -64,7 +69,61 @@
           Figure 1. Comparison between depth-based methods and the proposed 3D reconstruction method.
         </p>
 
-        <!-- CONCEPTS -->
+        <!-- Visual Odometry and SLAM -->
+        <h3>Visual Odometry and SLAM</h3>
+        <p>
+          Visual odometry(VO), one of the founding stones in computer vision, is the process of determining the position and orientation of an actor by analyzing the information provided by its sensors/cameras. Its uses vary immensely from the average drone to the Mars Rovers Exploration[<a href="#References">10</a>].
+        </p>
+        <p>
+          There are many types of VO, we will be focusing on Monocular VO(opposed to Stereo VO) and visual-inertial odometry. Where Monocular VO refers to getting all the input from a single source (a single camera) and visual-inertial odometry to a system empolying an inertial measurement unit (IMU).
+        </p>
+        <p>
+          Simultaneous localization and mapping (SLAM) as the name suggests involves a computational process of constructing a map of an unknown environment while simultaneously keeping track of the agent's location on said map.
+        </p>
+
+        <!-- 3D reconstruction -->
+        <h3>3D reconstruction</h3>
+        <p>
+          Reconstruction refers to the process of capturing the shape and appearance of objects. This allows to determine the object's profile and creating a 3D grid.
+          While many methods are possible to achieve this, the discussion primarily focuses on the Monocular aspect, also called Monocular cues methods. These refer to the usage of one or more images from one viewpoint to create a 3D construction. Exploiting 2D characteristics and defining features(such as shadows and textures) to define the object of a higher dimension.
+        </p>
+
+        <!-- TSDF -->
+        <h3>TSDF Volume</h3>
+        <p>
+          A Truncated Signed Distance Field (TSDF) is a voxel array representing objects within a volume of space in which each voxel is labeled with the distance to the nearest surface. Numerous observations of an object from different perspectives average out noise and errors due to specular highlights and interreflections, producing a smooth continuous surface.<b> The TSDF algorithm can be efficiently parallelized on a general-purpose graphics processor, which allows data from RGB-D cameras to be integrated into the volume in real time.</b> The volume can be converted to a triangular mesh using the <b>Marching Cubes algorithm</b> (explained in "Depth maps and computations") and then handed off to application-specific processes.
+        </p>
+        <p>
+          [<a href="#References">11</a>]A <i>d</i>-dimensional grid of voxels, where the position of each voxel <b>x</b> is defined by its center.
+        </p>
+        <img alt="tsdf1" class="functions" src="./images/tsdf1.png"/>
+        <p class="explain">
+          Function 1
+        </p>
+        <p>
+          <i>sdf</i>, which is the signed distance in between voxel center and nearest object surface in direction of current measurement.
+          Objects in front of itself are positive whereas the area inside the object is defined as negative. <i> i </i> refers to the <i> i </i>-th observation.
+        </p>
+        <p>
+          <i> pic(<b>x</b>)</i> denotes to the projection of the voxel center onto the depth image. Accordingly <i> depth </i> is the measured depth in between the camera and the nearest object surface point. <i> cam </i> refers to the distance in between the voxel and the camera along the optical axis.
+        </p>
+        <p>
+          The truncated variant of <i>sdf</i> is denoted by function 2:
+        </p>
+        <img alt="tsdf2" class="functions" src="./images/tsdf2.png"/>
+        <p class="explain">
+          Function 2
+        </p>
+        <p> Each voxel has a weight <i>w</i> atteched to it to asses uncertainty of the corresponding <i>sdf</i>.
+        </p>
+        <p>
+          Finally, as mentioned prior, multiple viewpoints can be fused together in one <i>TSDF</i> to improve accuracy or added missing surface. This is done by weighted summation.
+        </p>
+        <img alt="tsdf3" class="functions" src="./images/tsdf3.png"/>
+        <p class="explain">
+          Function 3 and 4 respectively
+        </p>
+        <!-- Depth maps and computations -->
         <h3>Depth maps and computations</h3>
         <p>
           Depth maps are a vital instrument in attempting to recreate a model from images. They are clearly useful in a wide range of fields, however tend to set back the process' speed by their high number of computations. Most image-based real-time pipelines adopt the depth map fusion approach[<a href="#References">4</a>].
@@ -77,13 +136,13 @@
           This approach suffers as the maps are estimated individually on each key frame. Additionaly each map is estimated in full leading to substantial overlap in the results.
           Estimating the same surfaces multiple times causes unnecessary computations, and may cause difficulties delivering correct results in certain areas.(see Figure 1)
         </p>
-
         <p>
           The paper proposes a method to combat these problems fitting real-time reconstruction from a monocular video. By jointly reconstructing and fusing the 3D geometry directly in the TSDF-V and a given set of monocular images and camera poses from a SLAM system, NeuralRecon can incrementally unproject the image features to form sequentially a 3D feature volume by utilising convolutions to process the feature volume and eventually outputting a sparse TSDF-V which is then gradually refined.
         </p>
         <p>
           By directly reconstructing the implicit surface, the network is able to learn the local smoothness and global shape prior of natural 3D surfaces. This helps solve one of the issues introduced earlier of predicting separate depth maps.
         </p>
+
         <!-- GRU -->
         <h3>GRU</h3>
         <p>
@@ -92,27 +151,47 @@
         <p>
           While previous works commonly referred to SLTM for modeling, here a decision has been made to opt for a GRU based approach instead. GRU have been shown to be capabele of producing often comparable results with significantly faster computation times thanks to its simplicity. [<a href="#References">6,7</a>]
         </p>
+        <img alt="GRU" class="results" src="./images/GRU.png">
+        <p class="explain">
+          Figure 2. LSTM and GRU graphical illustrations side by side [6].
+        </p>
         <p>
-          The GRU fusion makes the current-fragment reconstruction conditioned on the previously reconstructed global volume, hence creating a clear connection between the fragments correcting the problen, which appeared in other designs and yielding a joint reconstruction. This as a result, reconstructs a dense, accurate and globally coherent mesh.
+          The GRU fusion makes the current-fragment reconstruction conditioned on the previously reconstructed global volume, hence creating a clear connection between the fragments correcting the problem, which appeared in other designs and yielding a joint reconstruction. This as a result, reconstructs a dense, accurate and globally coherent mesh. For exact calculation formulas see [6], however the main takeaway is, that similarly to the LSTM unit, the GRU has gating units that modulate the flow of information inside the unit, however, without having a separate memory cells. The GRU is forced to expose its full content and can control the flow of information when computing a new candidate.
         </p>
         <p>
           The experiments go on to report, that the new predicition procedure also removes the redundant computation in depth-based methods, which allows for the use of larger 3D CNNs while maintaining real-time performance.
         </p>
 
-        <!-- DATASETS -->
-        <h3>Datasets and experiments</h3>
+        <!-- CNN -->
+        <h3>3D CNN</h3>
         <p>
-          To validate the system ScanNet and 7-Scenes datasets have been used.
+          To validate the system ScanNet and 7-Scenes datasets have been used. Using
+        </p>
+
+        <!-- DATASETS -->
+        <h3>Convolution</h3>
+        <p>
+          To validate the system ScanNet and 7-Scenes datasets have been used. Using
+        </p>
+
+
+        <!-- DATASETS -->
+        <h3>Datasets</h3>
+        <p>
+          To validate the system ScanNet and 7-Scenes datasets have been used. Using this data helps achieve state-of-the-art performance on several 3D scene understanding tasks. However in this case it's put into action to validate the results from the experiments I'll mention shortly, measure the correctness and also see how the framework performs when placed in comparison to current state-of-the-art methods.
         </p>
         <img alt="ScanNet" class="results" src="./images/dataset1.jpg"/>
         <h5>1. ScanNet</h5>
         <p>
-          ScanNet is a RGB-D video dataset containing 2.5M views in over a thousand scenes annotated with 3D camera poses, surface reconstructions, and semantic segmentations [<a href="#References">8</a>]. Using this data helps achieve state-of-the-art performance on several 3D scene understanding tasks.
+          ScanNet is a RGB-D video dataset containing 2.5M views in over a thousand scenes annotated with 3D camera poses, surface reconstructions, and semantic segmentations [<a href="#References">8</a>].
         </p>
         <h5>2. 7-Scenes</h5>
         <p>
           The 7-Scenes dataset is a collection of tracked RGB-D camera frames. It can be used for evaluation of methods for uses such as dense tracking, mapping and more. [<a href="#References">9</a>]
         </p>
+
+
+
         <!-- Algorithm -->
         <h3>The algorithm</h3>
         ...
@@ -144,6 +223,8 @@
             <li><a href="https://arxiv.org/pdf/1702.04405">ScanNet: Richly-annotated 3D Reconstructions of Indoor Scenes Angela Dai, Angel X. Chang, Manolis Savva, Maciej Halber, Thomas Funkhouser, Matthias Nießner
             </a></li>
             <li>Jamie Shotton, Ben Glocker, Christopher Zach, Shahram Izadi, Antonio Criminisi, and Andrew Fitzgibbon. Scene Coordinate Regression Forests for Camera Relocalization in RGB-D Images. In CVPR, 2013</li>
+            <li><a href="https://onlinelibrary.wiley.com/doi/10.1002/rob.20184">Maimone, M.; Cheng, Y.; Matthies, L. (2007). "Two years of Visual Odometry on the Mars Exploration Rovers"</a></li>
+            <li><a href="https://www.researchgate.net/publication/268513443_Truncated_Signed_Distance_Function_Experiments_on_Voxel_Size">Werner, Diana & Al-Hamadi, Ayoub & Werner, Philipp. (2014). Truncated Signed Distance Function: Experiments on Voxel Size. 8815. 357-364. 10.1007/978-3-319-11755-3_40.</a></li>
           </ol>
         </div>
       </section>

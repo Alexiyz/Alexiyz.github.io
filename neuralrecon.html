@@ -35,6 +35,7 @@
         <p id="undername">Informatics B.Sc Student</p>
 
         <a id="home_link" href="index.html"><u>Home</u></a>
+        <a id="home_link" href="#References"><u>Bottom</u></a>
         <hr id=startmargin>
 
         <!-- ACTUAL START -->
@@ -207,27 +208,49 @@
           The 7-Scenes dataset is a collection of tracked RGB-D camera frames. It can be used for evaluation of methods for uses such as dense tracking, mapping and more. [<a href="#References">9</a>]
         </p>
 
+
         <!-- Related Work -->
         <h2> Related Works </h2>
         <h3> Multi-view Depth Estimation </h3>
         <p>
-
-
+          The proposed framework uses knowledge and baselines set up from multiple previous works.
+        </p>
+        <p>
+          Before deep learning, renowned works in monocular 3D reconstruction have achieved good performance with <b>plane-sweeping</b> stereo and depth filters <b>under the assumption of photo-consistency</b>.
+        </p>
+        <p>
+          Learning based methods on real time multi view depth estimation[<a href="#References">12,13</a>] attempt to <b>alleviate the photo consistency assumption</b> using 2D CNNs with a data driven approach, they maintain low cost and near real-time performance.
+        </p>
+        <p>
+          For high-resolution images and when offline computation is possible, multi-view estimation is known as Multiple View Stereo (MVS). Learning based approaches[<a href="#References">14,15</a>] have been still limited to mid-resolution images due to memory constraints.
+        </p>
+        <p>
+          SurfaceNet[<a href="#References">16</a>] has taken a new approach to the problem and used a unified volumetric representation to predict the volume occupancy. Atlas[<a href="#References">17</a>] has proposed using the volumetric design in predicting the TSDF and semantic labels with 3D CNN.
+        </p>
+        <p>
+          A coarse-to-fine approach has been used in recent works to improve the pipeline created from the 3D CNNs.<br>
         </p>
         <h3> 3D Surface Reconstruction </h3>
         <p>
-
-
+          When estimating the 3D surface position and producing the mesh an incremental TSDF-V fusion has been adopted in real time scenarios thanks to its simplicity and parallelization capability. Later on changed by RoutedFusion[<a href="#References">18</a>] from a simple linear addition into a data-dependent process.
         </p>
         <h3> Neural Implicit Representations </h3>
         <p>
-
-
+          Recent works and the proposed system use a learned neural implicit representation by predicting the SDF with the NN from the encoded image features similar to PIFu[<a href="#References">19</a>] with the key difference that here sparse 3D convolutions are used to predict a discrete TSDF volume.
         </p>
         <!-- Algorithm -->
         <h2>Methods & Implementation</h2>
-        ...
-
+        <p>
+          With the goal being a dense 3D scene reconstruction and have it be both accurate and in real time the system follows the concepts introduced earlier.
+          With a sequence of monocular images and a camera pose trajectory provided by a SLAM system. NeuralRecon predicts a TSDF with a three level coarse to fine approach that gradually increases the density of sparse voxels.
+        </p>
+        <img alt="Method" src="./images/method.png"/>
+        <p class="explain">
+          Figure 5.
+        </p>
+        <p>
+          The 3D reconstruction is incremental and the input images are processed sequentially. From this incoming stream of images a few <b> Key Frame </b> images are selected as input for the NNs. After the selection process they are fed into the image backbone to have the multi-level features extracted.
+        </p>
         <!-- Experiments -->
         <h2>The Experiments</h2>
         ...
@@ -257,6 +280,17 @@
             <li>Jamie Shotton, Ben Glocker, Christopher Zach, Shahram Izadi, Antonio Criminisi, and Andrew Fitzgibbon. Scene Coordinate Regression Forests for Camera Relocalization in RGB-D Images. In CVPR, 2013</li>
             <li><a href="https://onlinelibrary.wiley.com/doi/10.1002/rob.20184">Maimone, M.; Cheng, Y.; Matthies, L. (2007). "Two years of Visual Odometry on the Mars Exploration Rovers"</a></li>
             <li><a href="https://www.researchgate.net/publication/268513443_Truncated_Signed_Distance_Function_Experiments_on_Voxel_Size">Werner, Diana & Al-Hamadi, Ayoub & Werner, Philipp. (2014). Truncated Signed Distance Function: Experiments on Voxel Size. 8815. 357-364. 10.1007/978-3-319-11755-3_40.</a></li>
+            <li>Kaixuan Wang and Shaojie Shen. MVDepthNet: Real-Time Multiview Depth Estimation Neural Network. In 3DV, 2018.</li>
+            <li>Chao Liu, Jinwei Gu, Kihwan Kim, Srinivasa G Narasimhan, and Jan Kautz. Neural RGB-> D Sensing: Depth and uncertainty from a video camera. In CVPR, 2019. </li>
+            <li>Henrik Aanæs, Rasmus Ramsbøl Jensen, George Vogiatzis, Engin Tola, and Anders Bjorholm Dahl. Large-Scale Data for Multiple-View Stereopsis. IJCV, 2016.</li>
+            <li>Arno Knapitsch, Jaesik Park, Qian-Yi Zhou, and Vladlen Koltun. Tanks and Temples: Benchmarking Large-Scale Scene Reconstruction. ACM TOG, 2017. </li>
+            <li>Mengqi Ji, Juergen Gall, Haitian Zheng, Yebin Liu, and Lu Fang. SurfaceNet: An end-to-end 3D neural network for multiview stereopsis. In ICCV, 2017.</li>
+            <li>Zak Murez, Tarrence van As, James Bartolozzi, Ayan Sinha,
+              Vijay Badrinarayanan, and Andrew Rabinovich. Atlas: Endto-
+              End 3D Scene Reconstruction from Posed Images. In
+              ECCV, 2020. </li>
+            <li>Silvan Weder, Johannes Schönberger, Marc Pollefeys, and Martin R. Oswald. RoutedFusion: Learning Real-Time Depth Map Fusion. In CVPR, 2020.</li>
+            <li>Shunsuke Saito, Zeng Huang, Ryota Natsume, Shigeo Morishima, Angjoo Kanazawa, and Hao Li. PIFu: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization.In ICCV, 2019.</li>
           </ol>
         </div>
       </section>

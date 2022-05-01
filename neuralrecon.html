@@ -54,7 +54,7 @@
 
 
         <!-- INTRODUCTION -->
-        <h3>Introduction</h3>
+        <h2>Introduction</h2>
         <p>
           Scene reconstruction is one of the central tasks in 3D computer vision with currently numerous applications. 3D reconstruction has seen a wide range of usage within the medical industry, computer animation and graphics, virual reality(VR) and augmented reality(AR).
         </p>
@@ -68,7 +68,7 @@
         <p class="explain">
           Figure 1. Comparison between depth-based methods and the proposed 3D reconstruction method.
         </p>
-
+        <h2> Important Concepts & Walkthrough of the process </h2>
         <!-- Visual Odometry and SLAM -->
         <h3>Visual Odometry and SLAM</h3>
         <p>
@@ -176,43 +176,64 @@
         <!-- CNN -->
         <h3>3D CNN</h3>
         <p>
-          Convolutional neural network (CNN) is a form of an artificial neural network, specilized for their usefulness in analyzation of imagery in computer vision. A CNN has as the name suggests convolutional layers. These recieve input from previous layers transform the input in some way and transfers it onwards. The Convolutional layers are able to detect patterns in the images fed to the network and learn the desired
+          Convolutional neural network (CNN) is a form of an artificial neural network, specilized for their usefulness in analyzation of imagery in computer vision. A CNN has as the name suggests has convolutional layers. These recieve input from previous layers transform the input in some way and transfers it onwards. The Convolutional layers are able to detect patterns in the images fed to the network and learn the desired patterns. Becuase the layers pass one the results from one to another using a certain filter, bigger neural networks equal more defined results.
         </p>
 
-        <!-- DATASETS -->
-        <h3>Convolution</h3>
+        <!--  Convolution -->
+        <h3>Convolution Operation</h3>
         <p>
-          To validate the system ScanNet and 7-Scenes datasets have been used. Using
+          The action referred to as <i>convolving</i>, means the filter <i> convolves</i> across a certain block/volume of pixel/voxels from the input. The Convolution itself is a mathematical operation between two functions yielding a new third function, that is supposed to give a new representation of the relationship between the previous cubes.
         </p>
-
+        <img alt="conv" class="functions" src="./images/Conv.svg"/>
+        <p class="explain">
+          Function 5
+        </p>
 
         <!-- DATASETS -->
         <h3>Datasets</h3>
         <p>
-          To validate the system ScanNet and 7-Scenes datasets have been used. Using this data helps achieve state-of-the-art performance on several 3D scene understanding tasks. However in this case it's put into action to validate the results from the experiments I'll mention shortly, measure the correctness and also see how the framework performs when placed in comparison to current state-of-the-art methods.
+          To validate the system, ScanNet and 7-Scenes datasets have been used. Using this data helps achieve state-of-the-art performance on several 3D scene understanding tasks. However in this case it's put into action to validate the results from the experiments, measure the correctness and also see how the framework performs when placed in comparison to current state-of-the-art methods.
         </p>
         <img alt="ScanNet" class="results" src="./images/dataset1.jpg"/>
-        <h5>1. ScanNet</h5>
+        <p class="explain">
+          Figure 4. Example of ScanNet Dataset
+        </p>
+        <h5>ScanNet</h5>
         <p>
           ScanNet is a RGB-D video dataset containing 2.5M views in over a thousand scenes annotated with 3D camera poses, surface reconstructions, and semantic segmentations [<a href="#References">8</a>].
         </p>
-        <h5>2. 7-Scenes</h5>
+        <h5>7-Scenes</h5>
         <p>
           The 7-Scenes dataset is a collection of tracked RGB-D camera frames. It can be used for evaluation of methods for uses such as dense tracking, mapping and more. [<a href="#References">9</a>]
         </p>
 
+        <!-- Related Work -->
+        <h2> Related Works </h2>
+        <h3> Multi-view Depth Estimation </h3>
+        <p>
 
 
+        </p>
+        <h3> 3D Surface Reconstruction </h3>
+        <p>
+
+
+        </p>
+        <h3> Neural Implicit Representations </h3>
+        <p>
+
+
+        </p>
         <!-- Algorithm -->
-        <h3>The algorithm</h3>
+        <h2>Methods & Implementation</h2>
         ...
 
         <!-- Experiments -->
-        <h3>The Experiments</h3>
+        <h2>The Experiments</h2>
         ...
 
         <!-- Experiments -->
-        <h3>Results & Discussion</h3>
+        <h2>Conclusion</h2>
         ...
 
         <!-- References -->

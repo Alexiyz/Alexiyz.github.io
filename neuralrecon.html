@@ -130,8 +130,19 @@
         </p>
         <p>
           Single-view depth maps are first estimated from each key frame and filtered for consistency and temporal smoothness, and lastely fused into a Truncated Signed Distance Function Volume (TSDF-V). <br>
-          The reconstructed mesh can be then extracted from the fusion with the marching Cubes Algoorithm [<a href="#References">5</a>]. An Algorithm, originally intended for usage in medical imaging, using a divide-and-conquer approach to generate inter-slice connectivity, defining a triangle topology it processes 3D data in-order and calculates verticies using linear interpolation. The detail in images produced from the generated surface models is the result of maintaining the inter-slice connectivity, surface data, and gradient information present in the original 3D data.
+          The reconstructed mesh can be then extracted from the fusion with the marching Cubes Algorithm [<a href="#References">5</a>]:
+
         </p>
+        <!-- Marching Cubes Excourse -->
+        <h5 style="margin-left:25px;"> Marching Cubes Algorithm </h5>
+        <p class="exkurs">
+           An Algorithm, originally intended for usage in medical imaging, it creates a tirangle mesh using an interative divide-and-conquer approach. It processes 3D data in-order and calculates verticies using linear interpolation. The detail in images produced from the generated surface models is the result of maintaining the inter-slice connectivity, surface data, and gradient information present in the original 3D data.
+           <img alt="Cubes" class="results" src="./images/marchcubes.png"/>
+           <p style="margin-left:3em;" class="explain">
+             Figure 3. Triangulated Cubes-colorized[<a href="#References">5</a>]
+           </p>
+        </p>
+
         <p>
           This approach suffers as the maps are estimated individually on each key frame. Additionaly each map is estimated in full leading to substantial overlap in the results.
           Estimating the same surfaces multiple times causes unnecessary computations, and may cause difficulties delivering correct results in certain areas.(see Figure 1)
@@ -165,7 +176,7 @@
         <!-- CNN -->
         <h3>3D CNN</h3>
         <p>
-          To validate the system ScanNet and 7-Scenes datasets have been used. Using
+          Convolutional neural network (CNN) is a form of an artificial neural network, specilized for their usefulness in analyzation of imagery in computer vision. A CNN has as the name suggests convolutional layers. These recieve input from previous layers transform the input in some way and transfers it onwards. The Convolutional layers are able to detect patterns in the images fed to the network and learn the desired
         </p>
 
         <!-- DATASETS -->

@@ -344,6 +344,14 @@ header {
   border-radius:90px;
 }
 
+.exkurs {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin: 0px 0 15px 15px;
+  border-left: 1px solid #DCDCDC;
+  padding-left: 20px;
+}
+
 .results {
   display: block;
   margin: 30px auto auto auto;

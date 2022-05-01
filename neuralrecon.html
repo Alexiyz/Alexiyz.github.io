@@ -238,21 +238,116 @@
         <p>
           Recent works and the proposed system use a learned neural implicit representation by predicting the SDF with the NN from the encoded image features similar to PIFu[<a href="#References">19</a>] with the key difference that here sparse 3D convolutions are used to predict a discrete TSDF volume.
         </p>
+
         <!-- Algorithm -->
         <h2>Methods & Implementation</h2>
         <p>
-          With the goal being a dense 3D scene reconstruction and have it be both accurate and in real time the system follows the concepts introduced earlier.
-          With a sequence of monocular images and a camera pose trajectory provided by a SLAM system. NeuralRecon predicts a TSDF with a three level coarse to fine approach that gradually increases the density of sparse voxels.
+          With the goal being a dense 3D scene reconstruction and have it be both accurate and in real time the system follows the concepts introduced earlier and the process seen in Figure 5.
+          With a sequence of monocular images
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mo>{</mo>
+            <msub>
+              <mi>I</mi>
+              <mn>t</mn>
+            </msub>
+            <mi>}</mi>
+          </math>
+          and a camera pose trajectory
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mo>{</mo>
+            <msub>
+              <mi>&xi;</mi>
+              <mn>t</mn>
+            </msub>
+            <mi>}</mi>
+          </math>
+           provided by a SLAM system. NeuralRecon predicts a TSDF-V
+           <math xmlns="http://www.w3.org/1998/Math/MathML">
+             <msup>
+             <msub>
+               <mi>S</mi>
+               <mn>t</mn>
+             </msub>
+             <mn>g</mn>
+           </msup>
+           </math>
+            with a three level coarse to fine approach that gradually increases the density of sparse voxels.
         </p>
-        <img alt="Method" src="./images/method.png"/>
+        <img alt="Method" class="mainmethod" src="./images/method.png"/>
         <p class="explain">
           Figure 5.
         </p>
         <p>
-          The 3D reconstruction is incremental and the input images are processed sequentially. From this incoming stream of images a few <b> Key Frame </b> images are selected as input for the NNs. After the selection process they are fed into the image backbone to have the multi-level features extracted.
+          The 3D reconstruction is incremental and the input images are processed sequentially in local fragments of
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mo>N</mo>
+          </math>
+         Frames. From this incoming stream of images a few <b> Key Frame </b> images are selected as input for the NNs. After the selection process they are fed into the image backbone to have the multi-level features extracted. The TSDF-V of a local fragment
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msup>
+            <msub>
+              <mi>S</mi>
+              <mn>t</mn>
+            </msub>
+            <mn>l</mn>
+          </msup>
+          </math>
+          is simultaneously reconstructed and fused with the global volume
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msup>
+            <msub>
+              <mi>S</mi>
+              <mn>t</mn>
+            </msub>
+            <mn>g</mn>
+          </msup>
+          </math>
+          by a learning-based approach.
         </p>
+        <p>
+          The reconstruction occurs fragment for fragment, with a window of
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mo>N</mo>
+          </math>
+           key frames being a local fragment. These are then back-projected along each ray into the 3D feature volume
+           <math xmlns="http://www.w3.org/1998/Math/MathML">
+             <msup>
+             <msub>
+               <mi>F</mi>
+               <mn>t</mn>
+             </msub>
+             <mn>l</mn>
+           </msup>
+           </math>
+           The feature volume is obtained by averaging the features from different views according to the visibility weight of each voxel. Which is the number of views from which a voxel can be observed in that local fragment. This is seen in Figure 6.
+        </p>
+        <img alt="Method2" class="mainmethod" src="./images/method2.png"/>
+        <p class="explain">
+          Figure 6.
+        </p>
+        <p>
+          The MLP used predicts both the occupancy score
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mn>o</mn>
+          </math>
+          and the SDF value
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mn>x</mn>
+          </math> of each voxel in each local TSDF-V. The sparsity aspect of the TSDF-V comes from this occupancy score which is checked for a lower bound
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mn>&theta;</mn>
+          </math>
+          and turned to void space if its less likely to be within the TSDF truncation distance. Afterwards the local volume is upsampled and concatenated with the next local feature volume and given as input to the GRU fusion.
+        </p>
+        <p>
+          The GRU fusion...
+        </p>
+
+
+
+
         <!-- Experiments -->
-        <h2>The Experiments</h2>
+        <h2>Experiments & Results</h2>
         ...
 
         <!-- Experiments -->

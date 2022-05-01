@@ -359,6 +359,13 @@ header {
   width: 70%;
 }
 
+.mainmethod {
+  display: block;
+  margin: 30px auto auto auto;
+  width: 100%;
+
+}
+
 .functions {
   display: block;
   margin: 30px auto auto auto;

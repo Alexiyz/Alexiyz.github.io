@@ -69,6 +69,17 @@
         <p class="explain">
           Figure 1. Comparison between depth-based methods and the proposed 3D reconstruction method.
         </p>
+
+        <!-- Main Contributions -->
+        <h2>Main Contributions</h2>
+        <p>
+          NeuralRecon is a relatively new work being introduced at CVPR 2021, but is already showing some impressive results reconstructing 3D indoor scenes at real time and with high quality, being compratively equal or better than the current state-of-the-art frameworks. Here the aspect of speed comes as most impressive, as through a new prediction based procedure replacing the old depth maps used in similar works the time needed to generate coherent 3D models has been drastically reduced. (See Figure 1), Most importantly, with this new found speed, and quality of the constructions has not suffered, but to the contrary, in some cases has been found to be dramatically more coherent and clear.
+        </p>
+        <p>
+          This allows technologies wishing to take advantage of the immense accelaration to integrate it into more downstream tasks like 3D object detection and zones requiring much faster results such as object detection by Vehicles and drones. While the accuracy most of the time remains at similar levels to current state-of-the-art frameworks, fields prioritising speed over cutting-edge accuracy may favor this system.
+        </p>
+
+
         <h2> Important Concepts & Walkthrough of the process </h2>
         <!-- Visual Odometry and SLAM -->
         <h3>Visual Odometry and SLAM</h3>
@@ -340,7 +351,27 @@
           and turned to void space if its less likely to be within the TSDF truncation distance. Afterwards the local volume is upsampled and concatenated with the next local feature volume and given as input to the GRU fusion.
         </p>
         <p>
-          The GRU fusion...
+          The GRU fusion maintains the consistency between fragments during reconstruction.
+          The reconstruction is continuous, taking into equation the results of previous reconstructions. The GRU used is one with a 3D convolutional module. The sparse convolutions extract the 3D geometric features
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msup>
+            <msub>
+              <mi>G</mi>
+              <mn>t</mn>
+            </msub>
+            <mn>l</mn>
+          </msup>
+          </math>
+           and the hidden state
+           <math xmlns="http://www.w3.org/1998/Math/MathML">
+             <msup>
+             <msub>
+               <mi>H</mi>
+               <mn>t-1</mn>
+             </msub>
+             <mn>g</mn>
+           </msup>
+           </math>
         </p>
 
 

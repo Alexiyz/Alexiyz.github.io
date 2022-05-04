@@ -526,15 +526,16 @@
         <p>
           Being a real-time method, perhaps would be most significant to mention is its efficiency. NeuralRecon works at a time cost of 30ms per key frame, achieving real-time speed at 33 key frames per second and outperforming all previous methods. This is about 10 times faster than Atlas. This is very much thanks to the prediction process removing unnecessary computations present in other methods.
         </p>
-
+        <img alt="results5" class="imagecomp" src="./images/results5.png">
+        <p class="explain">
+          Figure 7. Qualitative results on ScanNet. The color indicates surface normal. (See the original paper for the high resolution comparison)
+        </p>
+        <p>
+          As far as quality comes, compared to depth-based methods, NeuralRecon can produce much more coherent reconstruction results. The method also recovers sharper geometry compared to Atlas, which illustrates the effectiveness of the local fragment design in our method. Reconstructing only within the local fragment window avoids irrelevant image features from far-away camera views to be fused into the 3D volume.
+        </p>
         <!-- Conclusion -->
         <h2 id="conclus">Conclusion & personal remarks</h2>
         ...
-
-
-
-
-
 
 
 

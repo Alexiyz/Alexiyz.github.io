@@ -502,19 +502,32 @@
         <p>
           The copmarisons made are goaled at demonstrating the reconstruction accuracy of NeuralRecon. Additionaly that the framework does not suffer from its real-time based aspect and a compare the system to other methods performing reconstruction and estimations simultaneously.
         </p>
+        <img alt="results2" class="results" src="./images/results2.png">
+        <p class="explain">
+          Table 2. 3D geometry metrics on ScanNet.
+        </p>
+        <img alt="results3" class="results" src="./images/results3.png">
+        <p class="explain">
+          Table 3. 2D geometry metrics on ScanNet.
+        </p>
         <p>
-          Results...
+          Based on Table 2, we can see that the framework produces much better performance than recent learning-based methods and achieves slightly better results than COLMAP. While the tables speak strongly for themselves it's nevertheless important to mention that the method manages to surpass the volumetric baseline method Atlas on the accuracy, precision, and F-score scales. Where the shine falls is on terms of completeness and recallability, showing inferior performance compared to both depth-based methods and Atlas. Being an offline approach, Atlast has the advantagge of having a global context prior to its predictions. This leads to sometimes better results than the ground-truth on their part, due to its TSDF completion capability, this is though, still yet to be perfected showing also oversmoothend gemometries and inaccuracies.
+        </p>
+        <p>
+          In terms of the 2D metrics, NeuralRecon also outperforms previous state-of-the-art methods for almost all 2D depth matrics.
+        </p>
+        <img alt="results4" class="results" src="./images/results4.png">
+        <p class="explain">
+          Table 4. 3D geometry metrics (top block), 2D depth metrics (bottom block) on 7-Scenes. Time in ms.
+        </p>
+        <p>
+          As for the evalution on the 7-Scenes dataset, the method achieves comparable performance to CNMNet (state-of-the-art learning-depth-estimation method) and outperforms the rest.
+        </p>
+        <p>
+          Being a real-time method, perhaps would be most significant to mention is its efficiency. NeuralRecon works at a time cost of 30ms per key frame, achieving real-time speed at 33 key frames per second and outperforming all previous methods. This is about 10 times faster than Atlas. This is very much thanks to the prediction process removing unnecessary computations present in other methods.
         </p>
 
-
-
-
-
-
-
-
-
-        <!-- Experiments -->
+        <!-- Conclusion -->
         <h2 id="conclus">Conclusion & personal remarks</h2>
         ...
 

@@ -372,6 +372,16 @@ header {
   width: 50%;
 }
 
+.contents_header {
+  text-align: center;
+}
+
+.contents {
+  font-size: 16px;
+  color:#494949;
+  text-align: center;
+}
+
 #name {
   font-size: 28px;
   margin: 10px 10px 0px 0px;

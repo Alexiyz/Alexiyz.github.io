@@ -54,8 +54,24 @@
           <p class="explain"> Showcase of the proposed framework.[<a href="#References">2</a>] </p>
 
 
+
+        <h3 class="contents_header"> Contents</h5>
+        <p class="contents">
+        I. Introduction<br>
+        II.<a href="#contrib"> Main Contributions</a><br>
+        III. <a href="#conc">Important concepts and walkthrough of the procedure</a><br>
+        IV. <a href="#datasets">Datasets </a><br>
+        V. <a href="#works">Related Works</a><br>
+        VI. <a href="#method">Method & Implementation </a><br>
+        VII. <a href="#experi">Experiments & Results</a><br>
+        VIII. <a href="#conclus">Conclusion & personal remarks</a><br>
+        IX. <a href="#References">References</a> <br>
+        </p>
+
+
+
         <!-- INTRODUCTION -->
-        <h2>Introduction</h2>
+        <h2 id="intro">Introduction</h2>
         <p>
           Scene reconstruction is one of the central tasks in 3D computer vision with currently numerous applications. 3D reconstruction has seen a wide range of usage within the medical industry, computer animation and graphics, virual reality(VR) and augmented reality(AR).
         </p>
@@ -70,8 +86,10 @@
           Figure 1. Comparison between depth-based methods and the proposed 3D reconstruction method.
         </p>
 
+
+
         <!-- Main Contributions -->
-        <h2>Main Contributions</h2>
+        <h2 id="contrib">Main Contributions</h2>
         <p>
           NeuralRecon is a relatively new work being introduced at CVPR 2021, but is already showing some impressive results reconstructing 3D indoor scenes at real time and with high quality, being compratively equal or better than the current state-of-the-art frameworks. Here the aspect of speed comes as most impressive, as through a new prediction based procedure replacing the old depth maps used in similar works the time needed to generate coherent 3D models has been drastically reduced. (See Figure 1), Most importantly, with this new found speed, and quality of the constructions has not suffered, but to the contrary, in some cases has been found to be dramatically more coherent and clear.
         </p>
@@ -80,7 +98,9 @@
         </p>
 
 
-        <h2> Important Concepts & Walkthrough of the process </h2>
+
+
+        <h2 id="conc"> Important Concepts & Walkthrough of the process </h2>
         <!-- Visual Odometry and SLAM -->
         <h3>Visual Odometry and SLAM</h3>
         <p>
@@ -201,8 +221,10 @@
           Function 5
         </p>
 
+
+
         <!-- DATASETS -->
-        <h3>Datasets</h3>
+        <h2 id="datasets">Datasets</h2>
         <p>
           To validate the system, ScanNet and 7-Scenes datasets have been used. Using this data helps achieve state-of-the-art performance on several 3D scene understanding tasks. However in this case it's put into action to validate the results from the experiments, measure the correctness and also see how the framework performs when placed in comparison to current state-of-the-art methods.
         </p>
@@ -220,8 +242,9 @@
         </p>
 
 
+
         <!-- Related Work -->
-        <h2> Related Works </h2>
+        <h2 id="works"> Related Works </h2>
         <h3> Multi-view Depth Estimation </h3>
         <p>
           The proposed framework uses knowledge and baselines set up from multiple previous works.
@@ -250,10 +273,13 @@
           Recent works and the proposed system use a learned neural implicit representation by predicting the SDF with the NN from the encoded image features similar to PIFu[<a href="#References">19</a>] with the key difference that here sparse 3D convolutions are used to predict a discrete TSDF volume.
         </p>
 
+
+
         <!-- Algorithm -->
-        <h2>Methods & Implementation</h2>
+        <h2 id="method">Methods & Implementation</h2>
         <p>
-          With the goal being a dense 3D scene reconstruction and have it be both accurate and in real time the system follows the concepts introduced earlier and the process seen in Figure 5.
+          With the goal being a dense 3D scene reconstruction and have it be both accurate and in real time the system follows the concepts introduced earlier and the process seen in Figure 5 to achieve this.
+
           With a sequence of monocular images
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mo>{</mo>
@@ -263,6 +289,7 @@
             </msub>
             <mi>}</mi>
           </math>
+
           and a camera pose trajectory
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mo>{</mo>
@@ -272,6 +299,7 @@
             </msub>
             <mi>}</mi>
           </math>
+
            provided by a SLAM system. NeuralRecon predicts a TSDF-V
            <math xmlns="http://www.w3.org/1998/Math/MathML">
              <msup>
@@ -282,18 +310,23 @@
              <mn>g</mn>
            </msup>
            </math>
+
             with a three level coarse to fine approach that gradually increases the density of sparse voxels.
         </p>
         <img alt="Method" class="mainmethod" src="./images/method.png"/>
         <p class="explain">
-          Figure 5.
+          Figure 5. (Notice: g stands for global, l for current level, t for time)
         </p>
         <p>
           The 3D reconstruction is incremental and the input images are processed sequentially in local fragments of
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mo>N</mo>
           </math>
-         Frames. From this incoming stream of images a few <b> Key Frame </b> images are selected as input for the NNs. After the selection process they are fed into the image backbone to have the multi-level features extracted. The TSDF-V of a local fragment
+
+         Frames. From this incoming stream of images a few <b> Key Frames </b> are selected as input for the NNs. The frames are then defined as an enclosed Fragment Bounding Volume (FBV) and it encloses all their view frustums aswell. Only the area within this FBV is considered during a fragment-reconstruction.
+       </p>
+
+       <p>After the selection process they are fed into the image backbone to have the multi-level features extracted. The TSDF-V of a local fragment
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <msup>
             <msub>
@@ -303,7 +336,7 @@
             <mn>l</mn>
           </msup>
           </math>
-          is simultaneously reconstructed and fused with the global volume
+          is simultaneously reconstructed fragment for fragment and fused with the global volume
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <msup>
             <msub>
@@ -316,11 +349,7 @@
           by a learning-based approach.
         </p>
         <p>
-          The reconstruction occurs fragment for fragment, with a window of
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <mo>N</mo>
-          </math>
-           key frames being a local fragment. These are then back-projected along each ray into the 3D feature volume
+          The features extracted are then back-projected along each ray into the 3D feature volume
            <math xmlns="http://www.w3.org/1998/Math/MathML">
              <msup>
              <msub>
@@ -329,14 +358,28 @@
              </msub>
              <mn>l</mn>
            </msup>
-           </math>
-           The feature volume is obtained by averaging the features from different views according to the visibility weight of each voxel. Which is the number of views from which a voxel can be observed in that local fragment. This is seen in Figure 6.
+         </math>.
+           The feature volume is obtained by averaging the features from different views according to the visibility weight of each voxel. Which is the number of views from which a voxel can be observed in that local fragment (This is seen in Figure 6).
         </p>
         <img alt="Method2" class="mainmethod" src="./images/method2.png"/>
         <p class="explain">
           Figure 6.
         </p>
         <p>
+          The resulting
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msup>
+            <msub>
+              <mi>F</mi>
+              <mn>t</mn>
+            </msub>
+            <mn>l</mn>
+          </msup>
+        </math>s are then fed into the GRU Fusion and later to the MLP.
+      </p>
+
+      <!-- The MLP Part-->
+      <p>
           The MLP used predicts both the occupancy score
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mn>o</mn>
@@ -344,15 +387,18 @@
           and the SDF value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mn>x</mn>
-          </math> of each voxel in each local TSDF-V. The sparsity aspect of the TSDF-V comes from this occupancy score which is checked for a lower bound
+          </math>
+          of each voxel in each local TSDF-V. The sparsity aspect of the TSDF-V comes from this occupancy score, which is checked for a lower bound
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <mn>&theta;</mn>
           </math>
-          and turned to void space if its less likely to be within the TSDF truncation distance. Afterwards the local volume is upsampled and concatenated with the next local feature volume and given as input to the GRU fusion.
+          and turned to void space if its less likely to be within the TSDF truncation distance. Afterwards the local volume is upsampled and concatenated with the next local feature volume, and given as input to the GRU fusion. This process repeats afterwards again.
         </p>
+
+        <!-- The GRU Part-->
         <p>
           The GRU fusion maintains the consistency between fragments during reconstruction.
-          The reconstruction is continuous, taking into equation the results of previous reconstructions. The GRU used is one with a 3D convolutional module. The sparse convolutions extract the 3D geometric features
+          The reconstruction is continuous, taking into equation the results of previous reconstructions. The GRU used is one with a 3D convolutional module, where sparse convolutions extract the 3D geometric features
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <msup>
             <msub>
@@ -361,29 +407,98 @@
             </msub>
             <mn>l</mn>
           </msup>
-          </math>
-           and the hidden state
+        </math>
+        . The geometric features are fused with the extracted local hidden state
            <math xmlns="http://www.w3.org/1998/Math/MathML">
              <msup>
              <msub>
                <mi>H</mi>
                <mn>t-1</mn>
              </msub>
+             <mn>l</mn>
+           </msup>
+           </math>
+           and the GRU produces the new
+           <math xmlns="http://www.w3.org/1998/Math/MathML">
+             <msup>
+             <msub>
+               <mi>H</mi>
+               <mn>t</mn>
+             </msub>
+             <mn>l</mn>
+           </msup>
+           </math>
+           , to be passed through the MLP and predict the TSDF-V of the corresponding layer.
+           The hidden state will also replace the global hidden state
+           <math xmlns="http://www.w3.org/1998/Math/MathML">
+             <msup>
+             <msub>
+               <mi>H</mi>
+               <mn>t</mn>
+             </msub>
              <mn>g</mn>
            </msup>
            </math>
-        </p>
+           for the next repetition.
+           <img alt="gru_state_fusion" class="functions" src="./images/gru_state_fusion.png"/>
+          <!-- Functions explanation -->
+           <p class="explain">
+             Functions 6,7,8 and 9 respectively.<br>
+             Formally, denoting
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+               <msub>
+                 <mi>z</mi>
+                 <mn>t</mn>
+               </msub>
+             </math>
+              as the update gate,
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msub>
+                  <mi>r</mi>
+                  <mn>t</mn>
+                </msub>
+              </math>
+               as the reset gate,
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                   <mi>&sigma;</mi>
+               </math>
+                as the sigmoid function and
+               <math xmlns="http://www.w3.org/1998/Math/MathML">
+                 <msub>
+                   <mi>W</mi>
+                   <mn>*</mn>
+                 </msub>
+               </math>
+               as the weight for sparse convolution.
+           </p>
+
+           <p>
+             At our last steps in this coarse-to-fine design, the last TSDF-V is integrated into the global one and the Marching Cubes is performed on this global volume to create the mesh.
+
+        <!-- Experiments -->
+        <h2 id="experi">Experiments & Results</h2>
+        ...
+
+
+
+
+
+
+
 
 
 
 
         <!-- Experiments -->
-        <h2>Experiments & Results</h2>
+        <h2 id="conclus">Conclusion & personal remarks</h2>
         ...
 
-        <!-- Experiments -->
-        <h2>Conclusion</h2>
-        ...
+
+
+
+
+
+
 
         <!-- References -->
         <div id="References">

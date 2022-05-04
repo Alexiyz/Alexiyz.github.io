@@ -473,13 +473,38 @@
            </p>
 
            <p>
-             At our last steps in this coarse-to-fine design, the last TSDF-V is integrated into the global one and the Marching Cubes is performed on this global volume to create the mesh.
+             At our last steps in this coarse-to-fine design, the last TSDF-V is integrated into the global one and the Marching Cubes algorithm is performed on this global volume to create the mesh.
 
         <!-- Experiments -->
         <h2 id="experi">Experiments & Results</h2>
-        ...
-
-
+        <p>
+        In order to evaluate the this new design and the quality it manages to output a few experiments have been conducted.
+        The experiments were on two indoor datasets, <a href="#datasets"> ScanNet(V2) and 7-Scenes </a>. The researchers used the same training and validation data used in previous works [<a href="#References">17</a>, <a href="#References">21</a>] with a corresponding baseline to make a fair comparison. The framework is first trained with the ScanNet dataset and then validated on 7-Scenes.
+        </p>
+        <p>
+          The 3D reconstruction quality is evaluated using 3D geometry metrics presented in [<a href="#References">17</a>]
+          and the 2D depth metrics defined in [<a href="#References">21</a>]
+        </p>
+        <img alt="metrics" class="results" src="./images/metrics.png">
+        <p class="explain">
+          Table 1. Metric definitions.
+          <i>n</i> is the number of pixels for the ground truth and prediction<br>
+          <i>d</i> is the predicted and ground truth depth.<br>
+          <i>t</i> is the predicted and ground truth TSDFs.<br>
+          <i>p</i> is the predicted and ground truth point clouds
+        </p>
+        <p>
+          The main copmarisons being made are between the discussed method and the following baseline methods in these categories:<br>
+          1) Real-time methods for multi-view depth estimation.<br>
+          2) Multiple view of NeuralRecon given the same efficiency.<br>
+          3) Learning based SLAM methods.<br>
+        </p>
+        <p>
+          The copmarisons made are goaled at demonstrating the reconstruction accuracy of NeuralRecon. Additionaly that the framework does not suffer from its real-time based aspect and a compare the system to other methods performing reconstruction and estimations simultaneously.
+        </p>
+        <p>
+          Results...
+        </p>
 
 
 
@@ -502,7 +527,7 @@
 
         <!-- References -->
         <div id="References">
-        <h5><a href="#">References</a></h5>
+        <h4><a href="#">References</a></h4>
         <ol>
             <li><a href="https://arxiv.org/pdf/2104.00681.pdf">Jiaming Sun, Yiming Xie1,Linghao Chen, Xiaowei Zhou, Hujun Bao, Zhejiang University, SenseTime Research - NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video</a></li>
             <li><a href="https://zju3dv.github.io/neuralrecon/">NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video Presentation Page</a></li>
@@ -526,12 +551,11 @@
             <li>Henrik Aanæs, Rasmus Ramsbøl Jensen, George Vogiatzis, Engin Tola, and Anders Bjorholm Dahl. Large-Scale Data for Multiple-View Stereopsis. IJCV, 2016.</li>
             <li>Arno Knapitsch, Jaesik Park, Qian-Yi Zhou, and Vladlen Koltun. Tanks and Temples: Benchmarking Large-Scale Scene Reconstruction. ACM TOG, 2017. </li>
             <li>Mengqi Ji, Juergen Gall, Haitian Zheng, Yebin Liu, and Lu Fang. SurfaceNet: An end-to-end 3D neural network for multiview stereopsis. In ICCV, 2017.</li>
-            <li>Zak Murez, Tarrence van As, James Bartolozzi, Ayan Sinha,
-              Vijay Badrinarayanan, and Andrew Rabinovich. Atlas: Endto-
-              End 3D Scene Reconstruction from Posed Images. In
-              ECCV, 2020. </li>
+            <li><a href="https://arxiv.org/pdf/2003.10432.pdf">Zak Murez, Tarrence van As, James Bartolozzi, Ayan Sinha, Vijay Badrinarayanan, and Andrew Rabinovich. Atlas: Endto-End 3D Scene Reconstruction from Posed Images. In ECCV, 2020</a></li>
             <li>Silvan Weder, Johannes Schönberger, Marc Pollefeys, and Martin R. Oswald. RoutedFusion: Learning Real-Time Depth Map Fusion. In CVPR, 2020.</li>
-            <li>Shunsuke Saito, Zeng Huang, Ryota Natsume, Shigeo Morishima, Angjoo Kanazawa, and Hao Li. PIFu: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization.In ICCV, 2019.</li>
+            <li><a href="https://arxiv.org/pdf/1905.05172.pdf">Shunsuke Saito, Zeng Huang, Ryota Natsume, Shigeo Morishima, Angjoo Kanazawa, and Hao Li. PIFu: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization.In ICCV, 2019</a></li>
+            <li><a href="https://arxiv.org/pdf/1806.04807.pdf">Chengzhou Tang and Ping Tan. BA-Net: Dense Bundle Adjustment Networks. In ICLR, 2019 </a></li>
+            <li><a href="https://papers.nips.cc/paper/2014/file/7bccfde7714a1ebadf06c5f4cea752c1-Paper.pdf">David Eigen, Christian Puhrsch, and Rob Fergus. Depth map prediction from a single image using a multi-scale deep network. In NeurIPS, 2014</a></li>
           </ol>
         </div>
       </section>

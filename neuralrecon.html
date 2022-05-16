@@ -535,9 +535,18 @@
         </p>
         <!-- Conclusion -->
         <h2 id="conclus">Conclusion & personal remarks</h2>
-        ...
-
-
+        <p>
+          NeuralRecon proposes a new novel system for real-time 3D reconstruction with monocular video.
+          It uses joint reconstruction and sparse TSDF fusion to efficiently deliver a 3D mesh in real time, faster than any state-of-the-art technology before it. 3D sparse convolutions and GRU play a key role, as seen in the ablation study and can be viewed as the improving components to similar algorithms such as Atlas, coming before it.
+          While improving the speed, it's  accuracy has remained at top level.
+          Old pipelines have been removed, and in their stead, the framework takes advantage of the power of neural networks and the learning element able to predict depth maps.
+          Despite all this, further improvement remain possible; such as improving the accuracy further with methods seen in CNMNet.
+          This has been a big step into fitting the framework and enabling real-time 3D recosntructions for commercial use and for downstream tasks and new possibilities that were locked priorly behind efficiency-gates or the graphical power needed.
+        </p>
+        <p>
+          It remains important to mention that the method and its testing have been limited to indoor scenes.<br>
+          While fitting for some, many other fields require outdoors usage or at the very least outdoors compatibility. The Testing aswell has been done on a single system; Different GPUs optimized for different tasks may yield different results. The results as they are, are quite ground-breaking, and can pave the way for further optimizations and reconstructions algorithms to really highlight the usefulness. While the creators address the topic of outdoor scenes in an outside source, this remains to be untested due to ScanNet dataset being exclusively indoors. A big point I found personaly interesting and left almost unmentioned is the GRAM used has been reduced by around 8x. This immense drop opens the door for personal testing/experimenting. (from over 24GB before for a scene to around 3GB), a huge step towards enabling commercial usage.
+        </p>
 
         <!-- References -->
         <div id="References">

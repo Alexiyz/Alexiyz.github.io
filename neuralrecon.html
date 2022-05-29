@@ -78,7 +78,9 @@
         <p>
           Focusing in on the latter for example, to enable realistic and immersive interactions between the desired effects and the surrounding physical environment, the 3D reconstruction has many standards to fulfil; it needs to be accurate, coherent and performed without any noticeable delay.
         </p>
+        <p>Many of these reconstructions are often estimated by fusing depth measurements from special sensors, such as structured light, time of flight, or others into 3D models. While these can be extremely effective, they require special hardware making them more cumbersome and expensive than systems that rely solely on RGB cameras.</p>
         <p>
+          Another aspect to consider is the real-time aspect.
           While camera motion can be tracked accurately with state-of-the-art visual-inertial SLAM systems [<a href="#References">3</a>], real-time image-based dense reconstruction remains to be a challenging problem due to <b>low reconstruction quality and high computation demands.</b> Slow and low quality algorithms are naturaly undesirable and can be unreliable when requiring precise results. The proposed framework 'NeuralRecon' attempts to address these issues. Moreover the method proposes a way avoiding the common path of depth-based methods, which uses TSDF fusion and per frame analyzation, and rather predicts it in a local window.
         </p>
         <img alt="result1" class="results" src="./images/results1.jpg"/>
@@ -91,10 +93,10 @@
         <!-- Main Contributions -->
         <h2 id="contrib">Main Contributions</h2>
         <p>
-          NeuralRecon is a relatively new work being introduced at CVPR 2021, but is already showing some impressive results reconstructing 3D indoor scenes at real time and with high quality, being compratively equal or better than the current state-of-the-art frameworks. Here the aspect of speed comes as most impressive, as through a new prediction based procedure replacing the old depth maps used in similar works the time needed to generate coherent 3D models has been drastically reduced. (See Figure 1), Most importantly, with this new found speed, and quality of the constructions has not suffered, but to the contrary, in some cases has been found to be dramatically more coherent and clear.
+          NeuralRecon is a relatively new work being introduced at CVPR 2021, but is already showing some impressive results reconstructing 3D indoor scenes at real time and with high quality, being compratively equal or better than the current state-of-the-art frameworks. Here the aspect of speed comes as most impressive. Through a new prediction based procedure replacing the old depth maps used in similar works the time needed to generate coherent 3D models has been drastically reduced. (See Figure 1), Most importantly, with this new found speed, and quality of the constructions has not suffered, but to the contrary, in some cases has been found to be dramatically more coherent and clear.
         </p>
         <p>
-          This allows technologies wishing to take advantage of the immense accelaration to integrate it into more downstream tasks like 3D object detection and zones requiring much faster results such as object detection by Vehicles and drones. While the accuracy most of the time remains at similar levels to current state-of-the-art frameworks, fields prioritising speed over cutting-edge accuracy may favor this system.
+          This allows technologies wishing to take advantage of the immense accelaration to integrate it into more downstream tasks like 3D object detection and zones requiring much faster results such as object detection by Vehicles and drones. While the accuracy most of the time remains at similar levels to current state-of-the-art frameworks, fields prioritising speed over cutting-edge accuracy may favor this system. Moreover it has been found that the proposed framework is able to execute with much greater graphical memory efficiency, playing favourably into integration of this algorithm into less hardware-equiped systems.
         </p>
 
 
@@ -107,7 +109,7 @@
           Visual odometry(VO), one of the founding stones in computer vision, is the process of determining the position and orientation of an actor by analyzing the information provided by its sensors/cameras. Its uses vary immensely from the average drone to the Mars Rovers Exploration[<a href="#References">10</a>].
         </p>
         <p>
-          There are many types of VO, we will be focusing on Monocular VO(opposed to Stereo VO) and visual-inertial odometry. Where Monocular VO refers to getting all the input from a single source (a single camera) and visual-inertial odometry to a system empolying an inertial measurement unit (IMU).
+          There are many types of VO, we will be focusing on Monocular VO(opposed to Stereo VO) and visual-inertial odometry. Monocular VO refers to getting all the input from a single source (a single camera) and visual-inertial odometry to a system empolying an inertial measurement unit (IMU).
         </p>
         <p>
           Simultaneous localization and mapping (SLAM) as the name suggests involves a computational process of constructing a map of an unknown environment while simultaneously keeping track of the agent's location on said map.

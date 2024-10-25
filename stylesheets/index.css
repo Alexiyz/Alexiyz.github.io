@@ -1,0 +1,18 @@
+.blogpost {
+    text-align: center;
+}
+
+.description {
+  margin-bottom: 35px;
+}
+
+
+h1#project_headline {
+    font-size: 48px;
+    color:#f2f2f2
+  }
+
+#header_wrap .inner {
+    padding: 30px 10px 0px 0px;
+}
+  

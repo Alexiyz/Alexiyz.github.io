@@ -1,0 +1,83 @@
+#References a {
+    display: inline;
+  }
+  
+#References ol {
+    counter-reset: item;
+    margin-left: 0;
+    padding-left: 0;
+}
+#References li {
+    display: block;
+    margin-bottom: .5em;
+    margin-left: 2em;
+}
+  
+#References li::before {
+    display:inline-block;
+    content: "[" counter(item) "] ";
+    counter-increment: item;
+    margin-left: -2em;
+    margin-right: 1em;
+}
+  
+.explain {
+    font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color:#8b8b8b;
+    text-align: center;
+    margin: 0 0 35px 0;
+}
+
+p img {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+    border: none;
+}
+
+.exkurs {
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0px 0 15px 15px;
+    border-left: 1px solid #DCDCDC;
+    padding-left: 20px;
+  }
+
+.results {
+    display: block;
+    margin: 30px auto auto auto;
+    width: 70%;
+}
+
+.imagecomp {
+    display: block;
+    margin: 30px auto auto auto;
+    width: 100%;
+  }
+  
+.mainmethod {
+    display: block;
+    margin: 30px auto auto auto;
+    width: 100%;
+  
+}
+  
+.functions {
+    display: block;
+    margin: 30px auto auto auto;
+    width: 50%;
+}
+
+
+.contents_header {
+    text-align: center;
+  }
+  
+  .contents {
+    font-size: 16px;
+    color:#494949;
+    text-align: center;
+  }

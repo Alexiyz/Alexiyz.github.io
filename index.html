@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Alexiy's Blog Page" />
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/common.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <script src="common.js" defer></script>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -21,22 +24,21 @@
         </header>
     </div>
 
+
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
 
-        <!-- Start Header -->
-        <img alt="ppicture" class="ppicture" src="./images/me.jpeg"/>
-        <p id="name">Alexiy Zhandarov</p>
-        <p id="undername">Informatics BSc Student</p>
-        <hr id=startmargin>
+        <header-component></header-component>
 
-        <!-- ACTUAL START -->
+        <!-- START -->
         <h1 class="blogpost">Welcome</h1>
         <p>Welcome to my website, where I host my study-related works and personal projects.</p>
 
-        <!--BLOGPOST -->
-        <h2 class="blogpost"><a href="./neuralrecon.html">Paper Analysis on Real-Time 3D Scene Reconstruction from Monocular Video</a></h2>
+        <!--ENTRY -->
+        <h2 id="1" class="blogpost">
+          <a href="./neuralrecon.html">Paper Analysis on Real-Time 3D Scene Reconstruction from Monocular Video</a>
+        </h2>
         <p class="time"> May 20, 2022 </p>
         <p class="description">Review and analysis of NeuralRecon: Real-Time Coherent 3D Reconstruction from Monocular Video
            published in CVPR 2021. A brief introduction of the relevant concepts and going over the relevant terms,
@@ -44,7 +46,7 @@
            and delve into what they mean for the field ... </p>
         <hr>
 
-        <!--BLOGPOST -->
+        <!--ENTRY -->
         <h2 class="blogpost"><a href="">Future Projects</a></h2>
         <p class="time"> Date </p>
         <p class="description"> ... </p>
@@ -52,12 +54,9 @@
       </section>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+    <footer-component></footer-component>
 
   </body>
 </html>
+
+<!-- HTML !-->
